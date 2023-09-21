@@ -14,7 +14,7 @@ import streamlit as st
 
 os.environ["OPENAI_API_KEY"]=openai_key
 
-st.title('Alfred Browser')
+st.title('Alfred Browser 🔎')
 input_text=st.text_input("Search the topic u want")
 
 def writePods(info):
