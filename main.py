@@ -1,6 +1,5 @@
 import os
-import flask
-from flask import Flask, render_template_string
+import sys
 from constants import openai_key
 from langchain.llms import OpenAI
 from langchain import PromptTemplate
@@ -28,18 +27,14 @@ def writePods(info):
 
 def getInfo(cmd):
     try:
-        # Run the command and capture the output
         result = subprocess.run(cmd, check=True, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         pods_info = result.stdout.splitlines()
-        # os.system('echo "" >> index.html')
-        # os.system('cp template.html index.html')
-        # Print the command's output
         writePods(pods_info)
-       
     except subprocess.CalledProcessError as e:
         print(f"Error occurred: {e.stderr}")
 
 def gptInfo(input_text):
+    keyWords = ["erase", "delete", "remove", "Delete", "DELETE"]
     first_input_prompt=PromptTemplate(
         input_variables=['command'],
         template="Command in k8s for {command}"
@@ -47,17 +42,14 @@ def gptInfo(input_text):
     ## OPENAI LLMS
     llm=OpenAI(temperature=0.8)
     chain=LLMChain(llm=llm,prompt=first_input_prompt,verbose=True)
-
     if input_text:
-        out = chain.run(input_text)
-        st.write(out)
-        getInfo(out)
-
-
-
-# Display HTML in Streamlit
-    # components.v1.html(html_string, width=800, height=400)
-
+        for key in keyWords:
+            if key in input_text:
+                st.write("I don't have capabilites to perform this action")
+                sys.exit()
+            else:                    
+                out = chain.run(input_text)
+                st.write(out)
+                getInfo(out)
 
 gptInfo(input_text)
-# viewhtml()
