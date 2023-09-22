@@ -23,7 +23,7 @@ def writePods(info):
     headers = re.split(r'\s+', lines[0]) if lines else []
     rows = [re.split(r'\s+', line, maxsplit=len(headers)-1) for line in lines[1:]]
     rendered_html = template.render(headers=headers, rows=rows)
-    components.v1.html(rendered_html, width=1200, height=600)    
+    components.v1.html(rendered_html, width=800, height=600)    
 
 def getInfo(cmd):
     try:
