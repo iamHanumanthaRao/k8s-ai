@@ -4,24 +4,67 @@
     <meta charset="UTF-8">
     <title>Dynamic Command Output</title>
 </head>
-<body style="background-color: antiquewhite;">
-    <table border="1">
-        <thead>
-            <tr>
-                {% for header in headers %}
-                    <th>{{ header }}</th>
-                {% endfor %}
-            </tr>
-        </thead>
-        <tbody>
-            {% for row in rows %}
+<style>
+   .tablerounededCorner {
+        border: 1px transparent;
+        background-color: #1d1e42;
+        border-radius: 8px;
+        overflow: auto;
+        width:1200px;
+        height:500px;
+    }
+    table {
+        border-collapse: collapse;
+        border-radius: 8px;
+        overflow: hidden;
+        width: 100%;
+    }
+    td,
+    th {
+        padding: 16px;
+        border: no-border;
+        color: #fff;
+        font-family: "Inter";
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 20px;
+        text-align: left;
+    }
+    th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        background: #1d1e42;
+        font-weight: 700;
+        text-transform: capitalize;
+    }
+    tr:nth-child(odd) {
+        background: #26264f;
+    }
+    tr:nth-child(even) {
+        background: #1d1e42;
+    } 
+</style>
+<body>
+    <div class="tablerounededCorner">
+        <table>
+            <thead>
                 <tr>
-                    {% for cell in row %}
-                        <td>{{ cell }}</td>
+                    {% for header in headers %}
+                        <th>{{ header }}</th>
                     {% endfor %}
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for row in rows %}
+                    <tr>
+                        {% for cell in row %}
+                            <td>{{ cell }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
